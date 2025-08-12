@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>animate0 tests</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mocha@10.4.0/mocha.css"/>
+    <style>.fixture{width:100px;height:100px;background:#eee}</style>
+  </head>
+  <body>
+    <div id="mocha"></div>
+    <div id="fixtures"></div>
+    <script src="https://cdn.jsdelivr.net/npm/mocha@10.4.0/mocha.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chai@4.4.1/chai.js"></script>
+    <script>window.mocha.setup('tdd'); window.chai = window.chai || chai; window.expect = window.chai.expect;</script>
+    <script type="module">
+      import './run.js';
+      window.addEventListener('error', (e) => { console.error(e.error || e.message); });
+      window.addEventListener('unhandledrejection', (e) => { console.error('rejection', e.reason); });
+    </script>
+  </body>
+  </html>
+
+

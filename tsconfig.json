@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "Node",
+    "allowJs": true,
+    "checkJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "types",
+    "outDir": "types",
+    "noEmit": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": []
+  },
+  "include": ["src/**/*.js"],
+  "exclude": ["tests/**", "lib/**", "src/gui/**"]
+}
+
+

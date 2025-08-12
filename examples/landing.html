@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>animate0.js – High‑performance web animation engine</title>
+    <link rel="stylesheet" href="./assets/css/styles.css"/>
+    <style>
+      header{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
+      .hero{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}
+      .hero .grid{display:grid;grid-template-columns:repeat(4,80px);gap:12px;justify-content:center}
+      .hero .grid .box{opacity:0;transform:translateY(20px)}
+      footer{margin-top:48px;color:#aab}
+      a{color:#7dd3fc;text-decoration:none}
+      section.features{margin-top:40px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+      .card{background:#12161b;border:1px solid #1f2630;border-radius:12px;padding:16px}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="section nav">
+        <span class="dot"></span>
+        <h1>animate0.js</h1>
+        <span class="muted" style="flex:1"></span>
+        <a class="btn" href="../README.md" target="_blank">Docs</a>
+        <a class="btn primary" href="https://www.npmjs.com/package/animate0.js" target="_blank">npm</a>
+      </header>
+      <section class="hero demo section">
+        <div>
+          <h2>Performance‑first animations</h2>
+          <p class="subtle">ESM‑first, tiny, and ergonomic. Timelines, stagger, eases, transforms, and more.</p>
+          <span class="pill">npm i animate0.js</span>
+          <pre><code>import { animate, stagger } from '../lib/animate0.esm.js'</code></pre>
+        </div>
+        <div class="grid" id="grid"></div>
+      </section>
+
+      <section class="features section" id="features">
+        <div class="card" id="card-1"><h3>Timelines</h3><p>Sequence animations with offsets.</p></div>
+        <div class="card" id="card-2"><h3>Stagger</h3><p>Distribute delays across targets.</p></div>
+        <div class="card" id="card-3"><h3>WAAPI</h3><p>Use native animations with the same API.</p></div>
+      </section>
+
+      <section class="section" id="draggable">
+        <h2>Draggable demo</h2>
+        <p class="subtle">Grab the square below.</p>
+        <div class="row">
+          <div class="box" id="drag"></div>
+        </div>
+      </section>
+      <footer class="footer">MIT © animate0 contributors</footer>
+    </div>
+    <script type="module">
+      import { animate, stagger, eases, createDraggable, onScroll, waapi } from '../lib/animate0.esm.js';
+      const grid = document.getElementById('grid');
+      for (let i=0;i<12;i++){
+        const b=document.createElement('div'); b.className='box'; grid.appendChild(b);
+      }
+      const items=[...grid.children];
+      items.forEach((el,i)=>{
+        animate({ targets: el, duration: 700, delay: i*40, ease: eases.easeInOutQuad, props: { opacity:[0,1], translateY:[20,0], scaleX:[0.8,1], scaleY:[0.8,1] } });
+      });
+
+      // Animate feature cards on scroll
+      const cards = [document.getElementById('card-1'), document.getElementById('card-2'), document.getElementById('card-3')];
+      cards.forEach((el, idx) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(16px)';
+        onScroll(el, (p) => {
+          const d = Math.max(0, Math.min(1, p));
+          animate({ targets: el, duration: 400, props: { opacity: [parseFloat(el.style.opacity)||0, 1], translateY: [16*(1-d), 0] } });
+        });
+      });
+
+      // Draggable demo
+      const dragEl = document.getElementById('drag');
+      dragEl.style.opacity = '1';
+      dragEl.style.transform = 'translate(0px, 0px)';
+      createDraggable(dragEl);
+
+      // WAAPI demo: pulse the draggable subtly when idle; disable during drag
+      let pulse = null;
+      if (dragEl.animate) {
+        pulse = waapi(dragEl, [ { transform: 'scale(1)' }, { transform: 'scale(1.04)' }, { transform: 'scale(1)' } ], { duration: 1200, iterations: Infinity, easing: 'ease-in-out' });
+      }
+      dragEl.addEventListener('pointerdown', () => { if (pulse) { pulse.cancel(); pulse = null; } });
+      dragEl.addEventListener('pointerup', () => {
+        if (!pulse && dragEl.animate) {
+          pulse = waapi(dragEl, [ { transform: 'scale(1)' }, { transform: 'scale(1.04)' }, { transform: 'scale(1)' } ], { duration: 1200, iterations: Infinity, easing: 'ease-in-out' });
+        }
+      });
+    </script>
+  </body>
+  </html>
+
+

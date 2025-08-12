@@ -1,0 +1,58 @@
+{
+  "name": "animate0.js",
+  "version": "1.0.0",
+  "description": "High-performance web animation engine (ESM-first) with UMD/IIFE/CJS outputs, JSDoc types, tests, and examples",
+  "type": "module",
+  "main": "lib/animate0.umd.js",
+  "module": "lib/animate0.esm.js",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./lib/animate0.esm.js",
+      "require": "./lib/animate0.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "keywords": [
+    "animation",
+    "web-animations",
+    "animejs",
+    "timeline",
+    "svg",
+    "waapi"
+  ],
+  "author": "animate0 contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "scripts": {
+    "dev": "rollup -c -w",
+    "dev-types": "set types=true&& rollup -c -w",
+    "build": "rimraf lib types && set build=true&& set types=true&& rollup -c",
+    "release": "rimraf lib types && set build=true&& set release=true&& set types=true&& rollup -c",
+    "open-examples": "browser-sync start --startPath examples --server --no-notify --directory --files \"**/*.js\"",
+    "test-browser": "browser-sync start --startPath tests/index.html --server --files \"**/*.js\" --no-notify --directory",
+    "test-node": "node node_modules/mocha/bin/mocha.js -u tdd --timeout 20000 \"./tests/suites/node.test.js\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-replace": "^5.0.7",
+    "@rollup/plugin-terser": "^0.4.4",
+    "browser-sync": "^2.29.3",
+    "chai": "^4.4.1",
+    "jsdom": "^24.1.0",
+    "mocha": "^10.4.0",
+    "rimraf": "^5.0.7",
+    "rollup": "^4.21.3",
+    "rollup-plugin-filesize": "^9.1.2",
+    "typescript": "^5.5.4"
+  }
+}
