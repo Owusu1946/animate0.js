@@ -24,7 +24,7 @@ CDN/IIFE (global `animate0`):
 ```html
 <div class="box"></div>
 <script type="module">
-  import { animate, eases } from './lib/animate0.esm.js';
+  import { animate, eases } from 'animate0.js';
   const box = document.querySelector('.box');
   animate({ targets: box, duration: 800, props: { opacity: [0, 1], translateX: [0, 200] }, ease: eases.easeInOutQuad });
 </script>
@@ -32,7 +32,7 @@ CDN/IIFE (global `animate0`):
 
 ### Timeline
 ```js
-import { createTimeline, animate } from './lib/animate0.esm.js';
+import { createTimeline, animate } from 'animate0.js';
 const el = document.querySelector('.box');
 const a1 = animate({ targets: el, duration: 300, props: { opacity: [0, 1] } });
 const a2 = animate({ targets: el, duration: 300, props: { translateX: [0, 150] } });
@@ -41,20 +41,20 @@ createTimeline().add(a1, 0).add(a2, 320).play();
 
 ### Stagger
 ```js
-import { animate, stagger } from './lib/animate0.esm.js';
+import { animate, stagger } from 'animate0.js';
 const items = document.querySelectorAll('.item');
 items.forEach((el, i) => animate({ targets: el, delay: i*40, duration: 400, props: { translateY: [16, 0], opacity: [0, 1] } }));
 ```
 
 ### Draggable
 ```js
-import { createDraggable } from './lib/animate0.esm.js';
+import { createDraggable } from 'animate0.js';
 createDraggable(document.querySelector('#drag'));
 ```
 
 ### WAAPI
 ```js
-import { waapi } from './lib/animate0.esm.js';
+import { waapi } from 'animate0.js';
 waapi(document.querySelector('#el'),
   [ { transform: 'scale(1)' }, { transform: 'scale(1.04)' }, { transform: 'scale(1)' } ],
   { duration: 1200, iterations: Infinity, easing: 'ease-in-out' }

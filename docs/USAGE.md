@@ -9,10 +9,10 @@ Install:
 npm i animate0.js
 ```
 
-ESM import in the browser (during dev use local `lib/animate0.esm.js`):
+ESM import:
 ```html
 <script type="module">
-  import { animate, eases } from './lib/animate0.esm.js';
+  import { animate, eases } from 'animate0.js';
   animate({ targets: document.querySelector('#box'), duration: 600, ease: eases.easeInOutQuad, props: { opacity: [0,1], translateX: [0, 160] } });
   
 </script>
@@ -32,13 +32,13 @@ animate({ targets: el, duration: 400, props: { translateX: [0, 120], translateY:
 
 ### Easing
 ```js
-import { eases } from './lib/animate0.esm.js';
+import { eases } from 'animate0.js';
 animate({ targets: el, duration: 500, ease: eases.easeInOutQuad, props: { opacity: [0,1] }});
 ```
 
 ## Timelines
 ```js
-import { createTimeline, animate } from './lib/animate0.esm.js';
+import { createTimeline, animate } from 'animate0.js';
 const t1 = animate({ targets: a, duration: 200, props: { opacity: [0,1] }});
 const t2 = animate({ targets: a, duration: 200, props: { translateX: [0, 80] }});
 createTimeline().add(t1, 0).add(t2, 240).play();
@@ -46,20 +46,20 @@ createTimeline().add(t1, 0).add(t2, 240).play();
 
 ## Stagger
 ```js
-import { animate, stagger } from './lib/animate0.esm.js';
+import { animate, stagger } from 'animate0.js';
 const els = document.querySelectorAll('.item');
 els.forEach((el, i) => animate({ targets: el, delay: i*40, duration: 300, props: { translateY: [12,0], opacity: [0,1] }}));
 ```
 
 ## Draggable
 ```js
-import { createDraggable } from './lib/animate0.esm.js';
+import { createDraggable } from 'animate0.js';
 createDraggable(document.querySelector('#drag'));
 ```
 
 ## Scroll observer
 ```js
-import { onScroll, animate } from './lib/animate0.esm.js';
+import { onScroll, animate } from 'animate0.js';
 onScroll(section, (progress) => {
   animate({ targets: section, duration: 200, props: { opacity: [progress, 1] }});
 });
@@ -67,19 +67,19 @@ onScroll(section, (progress) => {
 
 ## WAAPI wrapper
 ```js
-import { waapi } from './lib/animate0.esm.js';
+import { waapi } from 'animate0.js';
 const pulse = waapi(el, [ { transform:'scale(1)' }, { transform:'scale(1.04)' }, { transform:'scale(1)' } ], { duration: 1200, iterations: Infinity, easing: 'ease-in-out' });
 ```
 
 ## SVG helpers
 ```js
-import { svg } from './lib/animate0.esm.js';
+import { svg } from 'animate0.js';
 svg.draw(pathEl, 0.5); // 50% stroke draw
 ```
 
 ## Text splitter
 ```js
-import { text } from './lib/animate0.esm.js';
+import { text } from 'animate0.js';
 const splitter = new text.TextSplitter(el);
 // ... animate splitter.element.children ...
 splitter.revert();
